@@ -153,3 +153,6 @@ go test -v -tags "benchmark"
 ## License
 
 [MIT License](./LICENSE)
+
+## Version
+0.3.1
