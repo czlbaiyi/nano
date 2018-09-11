@@ -4,7 +4,7 @@ Online chat demo, ref: http://rumpetroll.com/
 
 ## Run demo
 ```shell
-cd $GOPATH/src/github.com/lonnng/nano/examples/demo/tadpole
+cd $GOPATH/src/github.com/czlbaiyi/nano/examples/demo/tadpole
 go run main.go
 ```
 
