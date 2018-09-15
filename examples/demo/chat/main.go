@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"time"
 
+	"strings"
+
 	"github.com/czlbaiyi/nano"
 	"github.com/czlbaiyi/nano/component"
 	"github.com/czlbaiyi/nano/serialize/json"
 	"github.com/czlbaiyi/nano/session"
-	"strings"
 )
 
 type (
@@ -38,7 +39,7 @@ type (
 
 	// AllMembers contains all members uid
 	AllMembers struct {
-		Members []int64 `json:"members"`
+		Members []uint64 `json:"members"`
 	}
 
 	// JoinResponse represents the result of joining room

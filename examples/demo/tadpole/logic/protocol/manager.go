@@ -10,6 +10,6 @@ type JoyLoginRequest struct {
 // LoginResponse represent a login response
 type LoginResponse struct {
 	Status int    `json:"status"`
-	ID     int64  `json:"id"`
+	ID     uint64 `json:"id"`
 	Error  string `json:"error"`
 }

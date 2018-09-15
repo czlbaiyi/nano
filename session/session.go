@@ -51,8 +51,8 @@ var (
 // parameter.
 type Session struct {
 	sync.RWMutex                        // protect data
-	id           int64                  // session global unique id
-	uid          int64                  // binding user id
+	id           uint64                 // session global unique id
+	uid          uint64                 // binding user id
 	lastTime     int64                  // last heartbeat time
 	entity       NetworkEntity          // low-level network entity
 	data         map[string]interface{} // session data store
@@ -86,13 +86,13 @@ func (s *Session) ResponseMID(mid uint, v interface{}) error {
 }
 
 // ID returns the session id
-func (s *Session) ID() int64 {
+func (s *Session) ID() uint64 {
 	return s.id
 }
 
 // UID returns uid that bind to current session
-func (s *Session) UID() int64 {
-	return atomic.LoadInt64(&s.uid)
+func (s *Session) UID() uint64 {
+	return atomic.LoadUint64(&s.uid)
 }
 
 // MID returns the last message id
@@ -101,12 +101,12 @@ func (s *Session) MID() uint {
 }
 
 // Bind bind UID to current session
-func (s *Session) Bind(uid int64) error {
+func (s *Session) Bind(uid uint64) error {
 	if uid < 1 {
 		return ErrIllegalUID
 	}
 
-	atomic.StoreInt64(&s.uid, uid)
+	atomic.StoreUint64(&s.uid, uid)
 	return nil
 }
 

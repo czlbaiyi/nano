@@ -41,9 +41,9 @@ type SessionFilter func(*session.Session) bool
 // sessions, data send to the group will send to all session in it.
 type Group struct {
 	mu       sync.RWMutex
-	status   int32                      // channel current status
-	name     string                     // channel name
-	sessions map[int64]*session.Session // session id map to session instance
+	status   int32                       // channel current status
+	name     string                      // channel name
+	sessions map[uint64]*session.Session // session id map to session instance
 }
 
 // NewGroup returns a new group instance
@@ -51,12 +51,12 @@ func NewGroup(n string) *Group {
 	return &Group{
 		status:   groupStatusWorking,
 		name:     n,
-		sessions: make(map[int64]*session.Session),
+		sessions: make(map[uint64]*session.Session),
 	}
 }
 
 // Member returns specified UID's session
-func (c *Group) Member(uid int64) (*session.Session, error) {
+func (c *Group) Member(uid uint64) (*session.Session, error) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
@@ -70,11 +70,11 @@ func (c *Group) Member(uid int64) (*session.Session, error) {
 }
 
 // Members returns all member's UID in current group
-func (c *Group) Members() []int64 {
+func (c *Group) Members() []uint64 {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
-	members := []int64{}
+	members := []uint64{}
 	for _, s := range c.sessions {
 		members = append(members, s.UID())
 	}
@@ -140,7 +140,7 @@ func (c *Group) Broadcast(route string, v interface{}) error {
 }
 
 // Contains check whether a UID is contained in current group or not
-func (c *Group) Contains(uid int64) bool {
+func (c *Group) Contains(uid uint64) bool {
 	_, err := c.Member(uid)
 	return err == nil
 }
@@ -194,7 +194,7 @@ func (c *Group) LeaveAll() error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.sessions = make(map[int64]*session.Session)
+	c.sessions = make(map[uint64]*session.Session)
 	return nil
 }
 
@@ -222,6 +222,6 @@ func (c *Group) Close() error {
 	atomic.StoreInt32(&c.status, groupStatusClosed)
 
 	// release all reference
-	c.sessions = make(map[int64]*session.Session)
+	c.sessions = make(map[uint64]*session.Session)
 	return nil
 }

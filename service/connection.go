@@ -29,7 +29,7 @@ var Connections = newConnectionService()
 
 type connectionService struct {
 	count int64
-	sid   int64
+	sid   uint64
 }
 
 func newConnectionService() *connectionService {
@@ -54,10 +54,10 @@ func (c *connectionService) Count() int64 {
 // Reset reset the connection service status
 func (c *connectionService) Reset() {
 	atomic.StoreInt64(&c.count, 0)
-	atomic.StoreInt64(&c.sid, 0)
+	atomic.StoreUint64(&c.sid, 0)
 }
 
 // SessionID returns the session id
-func (c *connectionService) SessionID() int64 {
-	return atomic.AddInt64(&c.sid, 1)
+func (c *connectionService) SessionID() uint64 {
+	return atomic.AddUint64(&c.sid, 1)
 }

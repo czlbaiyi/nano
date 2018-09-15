@@ -12,16 +12,16 @@ type UpdateMessage struct {
 
 // EnterWorldResponse indicates a new tadpole enter current scene
 type EnterWorldResponse struct {
-	ID int64 `json:"id"`
+	ID uint64 `json:"id"`
 }
 
 // LeaveWorldResponse indicates tadpole leave current scene
 type LeaveWorldResponse struct {
-	ID int64 `json:"id"`
+	ID uint64 `json:"id"`
 }
 
 // WorldMessage represent a guest message
 type WorldMessage struct {
-	ID      int64  `json:"id"`
+	ID      uint64 `json:"id"`
 	Message string `json:"message"`
 }

@@ -45,6 +45,8 @@ func serve(ctx *cli.Context) error {
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
+	// http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
 	nano.SetCheckOriginFunc(func(_ *http.Request) bool { return true })
 
 	addr := ctx.String("addr")
