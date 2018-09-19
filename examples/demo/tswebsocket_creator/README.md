@@ -1,6 +1,4 @@
-# starx-chat-demo
-chat room demo base on [nano](https://github.com/czlbaiyi/nano) in 100 lines
-
+# nano-typescript-websocket-demo
 refs: https://github.com/czlbaiyi/nano
 
 ## Required
